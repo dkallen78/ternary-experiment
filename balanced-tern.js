@@ -31,7 +31,6 @@ function convert2tern() {
   console.clear();
   let numberInput = document.getElementById("number-input").value;
   let input = parseInt(numberInput, 10);
-  console.log(`toString(): ${input.toString(3)}`);
 
   let power = findHighestPower(input);
   let output = "";
@@ -43,7 +42,6 @@ function convert2tern() {
 
     input = input % (3 ** i);
   }
-  console.log(`my function: ${output}`);
 
   convert2balanced(output);
 }
@@ -54,16 +52,11 @@ function convert2balanced(number) {
     unbal.push(parseInt(number[i], 10));
   }
 
-  console.log(unbal);
-
   let start = unbal.findLastIndex((x) => x > 0);
-  console.log(start);
 
   //adding 1s
   let carry = false;
   for (let i = start; i >= 0; i--) {
-
-    console.log(`evaluating index ${i}: ${unbal[i]}`);
 
     if (carry) {
       unbal[i]++;
@@ -91,8 +84,6 @@ function convert2balanced(number) {
     
   }
 
-  console.log(`numbers added: ${unbal}`);
-
   //taking away 1s
   for (let i = start; i >= 1; i--) {
 
@@ -112,8 +103,6 @@ function convert2balanced(number) {
   if (unbal[0] === 1) {
     unbal[0] = pos;
   }
-
-  console.log(unbal);
 
   let output = "";
   unbal.forEach((x) => output += x);
