@@ -36,10 +36,7 @@
     <meta name="twitter:site" content="">
     <meta name="twitter:creator" content="">
 
-    <!--
-      <script src="script.js">
-      </script>
-    -->
+
     <style>
     </style>
   </head>
@@ -50,47 +47,12 @@
     <br>
     <input type="button" id="convert-input" value="Convert">
     <br>
+    <input type="button" id="random-number" value="Random">
+    <br>
     <div id="number-output"></div>
   </body>
-  <script>
 
-    const button = document.getElementById("convert-input");
-
-    button.addEventListener("click", convert2tern);
-
-    function convert2tern() {
-
-      function findHighestPower(input) {
-
-        for (var power = 0; input >= 3 ** power; power++) {
-        }
-
-        return power - 1;
-      }
-
-      console.clear();
-      let numberInput = document.getElementById("number-input").value;
-      let input = parseInt(numberInput, 10);
-
-      let power = findHighestPower(input);
-      let output = "";
-
-      for (let i = power; i >= 0; i--) {
-        console.log(`power: ${i}`);
-        console.log(`input: ${input}`);
-
-        let digit = Math.floor(input / (3 ** i)).toString(10);
-        console.log(`adding digit: ${digit}`);
-        output += digit;
-
-        input = input % (3 ** i);
-        console.log(`next input: ${input}`);
-      }
-      console.log(output);
-
-
-      //let numberOutput = document.getElementById("number-output");
-      //numberOutput.innerHTML = input;
-    }
+  <script src="balanced-tern.js">
   </script>
+
 </html>
