@@ -88,6 +88,12 @@ function toBalancedTernary(number) {
   return output;
 }
 
+function drawGlyphs(time) {
+  for (let i = 0; i < time.length; i++) {
+
+  }
+}
+
 const neg = "T";
 const pos = "1";
 const zero = "0";
@@ -98,18 +104,26 @@ let dial = document.getElementById("dial");
 const scaleDown = (1 / Math.sqrt(3));
 const maxSize = 95;
 
-let timeCheck = 0;
+let timeCheck = "";
 let timeInterval = setInterval(function() {
+  //This chunk finds the milliseconds that have elapsed in the current day
+  //  at the users local time zone
   const {hour, minute, second, millisecond} = Temporal.Now.plainTimeISO();
   let millis = hour * 3_600_000;
   millis += minute * 60_000;
   millis += second * 1_000;
   millis += millisecond;
-
+  //This chunk converts those milliseconds into 3^9 blocks, converts the number
+  //  of those blocks into ternary, then converts that number into balanced ternary
   let decimalTSecs = Math.floor(millis / 4389.57);
   let tSecs = toTernary(decimalTSecs);
-  let btSecs = toBalancedTernary(tSecs).padStart(9, 0)
+  let btSecs = toBalancedTernary(tSecs).padStart(10, 0)
 
-  dial.innerHTML = `${btSecs}`;
+  if (timeCheck !== btSecs) {
+    dial.innerHTML = `${btSecs}`;
+    timeCheck = btSecs;
+  }
+
+  
   
 }, 100);
