@@ -88,42 +88,28 @@ function toBalancedTernary(number) {
   return output;
 }
 
-//let neg = "⥝";
-let neg = "T";
-//let pos = "⥠";
-let pos = "1";
-let zero = "0";
+const neg = "T";
+const pos = "1";
+const zero = "0";
 
 
 let dial = document.getElementById("dial");
 
+const scaleDown = (1 / Math.sqrt(3));
+const maxSize = 95;
+
 let timeCheck = 0;
 let timeInterval = setInterval(function() {
+  const {hour, minute, second, millisecond} = Temporal.Now.plainTimeISO();
+  let millis = hour * 3_600_000;
+  millis += minute * 60_000;
+  millis += second * 1_000;
+  millis += millisecond;
 
-  let time = new Date();
-  let ttime = Temporal.Now.instant().epochMilliseconds;
-  let tmillis = ttime % 86_400_000;
-  let balancedSecond = Math.floor(tmillis / 4389.57);
-  if (balancedSecond !== timeCheck) {
-    timeCheck = balancedSecond;
-    console.clear();
-    console.log(`ttime: ${tmillis} bsec: ${balancedSecond}`);
-  }
-  
-  //console.log("running...");
+  let decimalTSecs = Math.floor(millis / 4389.57);
+  let tSecs = toTernary(decimalTSecs);
+  let btSecs = toBalancedTernary(tSecs).padStart(9, 0)
 
-  let hours = time.getHours();
-  let minutes = time.getMinutes();
-  let seconds = time.getSeconds();
-
-  hours = toTernary(hours);
-  minutes = toTernary(minutes);
-  seconds = toTernary(seconds);
-
-  hours = toBalancedTernary(hours).padStart(4, 0);
-  minutes = toBalancedTernary(minutes).padStart(5, 0);
-  seconds = toBalancedTernary(seconds).padStart(5, 0);
-
-  dial.innerHTML = `${hours}:${minutes}:${seconds}`;
+  dial.innerHTML = `${btSecs}`;
   
 }, 100);
