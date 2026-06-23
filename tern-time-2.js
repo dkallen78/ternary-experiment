@@ -89,8 +89,24 @@ function toBalancedTernary(number) {
 }
 
 function drawGlyphs(time) {
-  for (let i = 0; i < time.length; i++) {
+  function drawCircle() {
 
+  }
+  function drawUp() {
+
+  }
+  function drawDown() {
+
+  }
+  for (let i = 0; i < time.length; i++) {
+    switch(tritPos[i]) {
+      case "1":
+        break;
+      case "0":
+        break;
+      case "T":
+        break;
+    }
   }
 }
 
@@ -101,7 +117,8 @@ const zero = "0";
 
 let dial = document.getElementById("dial");
 
-const scaleDown = (1 / Math.sqrt(3));
+const ratio = Math.sqrt(3);
+const scaleDown = (1 / ratio);
 const maxSize = 95;
 
 let timeCheck = "";
