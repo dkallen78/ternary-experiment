@@ -17,28 +17,6 @@ function toRad(deg) {
 
 	return deg * (Math.PI / 180);
 }
-
-function toDeg(rad) {
-	//----------------------------------------------------//
-	//Converts an angle in radians to an angle in degrees	//
-	//----------------------------------------------------//
-	//deg(float): angle to be converted to degrees				//
-	//----------------------------------------------------//
-	//return(float): converted radians in degrees					//
-	//----------------------------------------------------//
-
-	return rad * (180 / Math.PI);
-}
-
-function midPoint(x1, y1, x2, y2) {
-  const midX = (x1 + x2) / 2;
-  const midY = (y1 + y2) / 2;
-  return {
-    x: midX,
-    y: midY
-  };
-}
-
 class Point {
 	//----------------------------------------------------//
 	//A data structure to make managing and representing	//
@@ -67,35 +45,6 @@ class Point {
 		const midY = (p1.y + p2.y) / 2;
 		const newCenter = new Point(midX, midY);
 		return newCenter;
-	}
-
-  static distance(p1, p2) {
-    /*----------------------------------------------------//
-    //Finds the  distance between two points on a         //
-    //  cartesian plane using the Pythagorean theorem     //
-    //----------------------------------------------------//
-    //p1(Point): first point                              //
-    //p2(Point): second point                             //
-    //----------------------------------------------------//
-    //return(float): distance between two points          //
-    //----------------------------------------------------*/
-  
-    return (Math.sqrt(((p1.x - p2.x) ** 2) + ((p1.y - p2.y) ** 2))).toFixed(4);
-  }
-
-	static vector(p1, p2) {
-		//----------------------------------------------------//
-		//Finds the vector from p1 to p2											//
-		//----------------------------------------------------//
-		//p1, p2(Point): points on the vector to be found			//
-		//----------------------------------------------------//
-		//return(Point): the vector from p1 to p2							//
-		//----------------------------------------------------//
-
-		const vecX = (p1.x - p2.x);
-		const vecY = (p1.y - p2.y);
-		const newVector = new Point(vecX, vecY);
-		return newVector;
 	}
 }
 
@@ -277,7 +226,6 @@ function drawTriDown(rad, id) {
 const neg = "T";
 const pos = "1";
 const zero = "0";
-
 
 let ratio = 3 ** (1 / 3);
 ratio = 1.3333333;
