@@ -151,6 +151,7 @@ function makePaths() {
   for(let i = 0; i < scale + 1; i++) {
     let tritPath = makeSVG("path", `path-${i}`);
     tritPath.setAttribute("stroke-width", `${(scale + 1 - i) / 10}%`);
+    tritPath.setAttribute("fill-opacity", `${i / scale}`);
     svgDial.appendChild(tritPath);
   }
 }
@@ -233,19 +234,22 @@ const scaleDown = (1 / ratio);
 const scale = 11;
 const secSize = 86_400_000 / (3 ** scale);
 
+let digitalDial = document.getElementById("digitalDial");
 let svgDial = document.getElementById("svgDial");
-let box = svgDial.getBoundingClientRect();
 
-let centerX = box.width / 2;
-let centerY = box.height / 2;
-let radius = (box.height / 2) - scale;
-
+let centerX, centerY, radius, btCheck;
+const ro = new ResizeObserver(entries => {
+  const box = entries[0].contentBoxSize[0];
+  centerX = box.inlineSize / 2;
+  centerY = box.blockSize / 2;
+  radius = (centerY) - scale;
+  btCheck = "x".padStart(scale + 1, "x");
+});
+ro.observe(svgDial);
 
 //Makes the <path> elements used for the "digits"
 makePaths();
 
-//Creates the state variable with scale + 1 characters
-let btCheck = "x".padStart(scale + 1, "x");
 //The gears of the clock
 let timeInterval = setInterval(function() {
   //This chunk finds the milliseconds that have elapsed in the current day
