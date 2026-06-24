@@ -1,3 +1,3 @@
-#[Digital Ternary Clock v0.1](https://dkallen78.github.io/ternary-experiment/tern-time.html)
+#[Digital Ternary Clock](https://dkallen78.github.io/ternary-experiment/balanced-ternary-clock.html)
 
-It's a digital ternary clock
+It's an analog balanced ternary clock
