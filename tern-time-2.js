@@ -221,7 +221,7 @@ function drawGlyphs(time) {
 }
 
 function makePaths() {
-  for(let i = 9; i >= 0; i--) {
+  for(let i = 0; i <= scale + 1; i++) {
     let tritPath = makeSVG("path", `path-${i}`);
     svgDial.appendChild(tritPath);
   }
@@ -306,24 +306,18 @@ let centerX = box.width / 2;
 let centerY = box.height / 2;
 let radius = box.height / 2;
 
-/*let cTest = document.getElementById("circle-test");
-cTest.setAttribute("cx", centerX);
-cTest.setAttribute("cy", centerY);
-cTest.setAttribute("r", radius);*/
-
-const ratio = 3 ** (1 / 3);
+let ratio = 3 ** (1 / 3);
+ratio = 1.3333333;
 const scaleDown = (1 / ratio);
-const maxSize = 95;
+const scale = 11;
+const secSize = 86_400_000 / (3 ** scale);
 
-let testState = "triangles";
-
-//makeTriangles();
-//makeCircles();
+//Makes the <path> elements used for the "digits"
 makePaths();
-//makeTriangles();
 
-let timeCheck = "";
-let btCheck = "xxxxxxxxxx";
+//Creates the state variable with scale + 1 characters
+let btCheck = "x".padStart(scale + 1, "x");
+//The gears of the clock
 let timeInterval = setInterval(function() {
   //This chunk finds the milliseconds that have elapsed in the current day
   //  at the users local time zone
@@ -332,17 +326,21 @@ let timeInterval = setInterval(function() {
   millis += minute * 60_000;
   millis += second * 1_000;
   millis += millisecond;
-  //This chunk converts those milliseconds into 3^9 blocks, converts the number
+  //This chunk converts those milliseconds into 3^scale blocks, converts the number
   //  of those blocks into ternary, then converts that number into balanced ternary
-  let decimalTSecs = Math.floor(millis / 4389.57);
+  let decimalTSecs = Math.floor(millis / secSize);
   let tSecs = toTernary(decimalTSecs);
-  let btSecs = toBalancedTernary(tSecs).padStart(10, 0)
+  let btSecs = toBalancedTernary(tSecs).padStart(scale + 1, 0)
 
+  //This if checks to see if the time has changed
   if (btCheck !== btSecs) {
+    //Raw display of btSecs
+    dial.innerHTML = `${btSecs}`;
+    //Sets the initial value of the radius
     let cRad = radius;
+    //Loops through the btSecs string checking for changes
     for (let i = 0; i < btSecs.length; i++) {
       if (btSecs[i] !== btCheck[i]) {
-        console.log(`i = ${i}`)
         switch (btSecs[i]) {
           case "1":
             drawTriUp(cRad, i);
@@ -355,23 +353,10 @@ let timeInterval = setInterval(function() {
             break;
         }
       }
-
+      //Scales the radius down by the set amount
       cRad *= scaleDown;
     }
+    //Sets the state variable to the current btSecs
     btCheck = btSecs;
   }
-  if (timeCheck !== btSecs) {
-    /*if (testState === "circles") {
-      makeTriangles();
-      testState = "triangles"
-    } else {
-      makeCircles();
-      testState = "circles";
-    }*/
-    dial.innerHTML = `${btSecs}`;
-    timeCheck = btSecs;
-  }
-
-  
-  
 }, 100);
