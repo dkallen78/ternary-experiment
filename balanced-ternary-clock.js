@@ -150,7 +150,7 @@ function makeSVG(type, id, ...classes) {
 function makePaths() {
   for(let i = 0; i < scale + 1; i++) {
     let tritPath = makeSVG("path", `path-${i}`);
-    tritPath.setAttribute("stroke-width", `${scale + 1 - i}`);
+    tritPath.setAttribute("stroke-width", `${(scale + 1 - i) / 10}%`);
     svgDial.appendChild(tritPath);
   }
 }

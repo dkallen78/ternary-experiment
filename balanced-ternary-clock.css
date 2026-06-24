@@ -16,6 +16,7 @@ path {
   fill: white;
   fill-opacity: 0.8;
   stroke: black;
+  /*stroke-width: .3%;*/
   transition: .3s;
 }
 
