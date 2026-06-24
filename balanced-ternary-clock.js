@@ -288,4 +288,4 @@ let timeInterval = setInterval(function() {
     //Sets the state variable to the current btSecs
     btCheck = btSecs;
   }
-}, 100);
+}, 50);
