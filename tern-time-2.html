@@ -25,14 +25,19 @@
 
 
     <style>
+      body {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+      }
       svg {
         width: 90vh;
         height: 90vh;
       }
       path {
-        fill: none;
+        fill: white;
+        fill-opacity: 0.8;
         stroke: black;
-        stroke-width: 1;
         transition: .3s;
       }
       #dial {

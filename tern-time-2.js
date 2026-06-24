@@ -198,31 +198,10 @@ function makeSVG(type, id, ...classes) {
   return svg;
 }
 
-function drawGlyphs(time) {
-  function drawCircle() {
-
-  }
-  function drawUp() {
-
-  }
-  function drawDown() {
-
-  }
-  for (let i = 0; i < time.length; i++) {
-    switch(tritPos[i]) {
-      case "1":
-        break;
-      case "0":
-        break;
-      case "T":
-        break;
-    }
-  }
-}
-
 function makePaths() {
-  for(let i = 0; i <= scale + 1; i++) {
+  for(let i = 0; i < scale + 1; i++) {
     let tritPath = makeSVG("path", `path-${i}`);
+    tritPath.setAttribute("stroke-width", `${scale + 1 - i}`);
     svgDial.appendChild(tritPath);
   }
 }
@@ -256,7 +235,7 @@ function drawCurves(rad, id) {
                         C ${c1_8to10.x} ${c1_8to10.y} ${c2_8to10.x} ${c2_8to10.y} ${point10.x} ${point10.y}
                         C ${c1_10to12.x} ${c1_10to12.y} ${c2_10to12.x} ${c2_10to12.y} ${point12.x} ${point12.y}
                         C ${c1_12to2.x} ${c1_12to2.y} ${c2_12to2.x} ${c2_12to2.y} ${point2.x} ${point2.y}
-                        C ${c1_2to4.x} ${c1_2to4.y} ${c2_2to4.x} ${c2_2to4.y} ${point4.x} ${point4.y}`);
+                        C ${c1_2to4.x} ${c1_2to4.y} ${c2_2to4.x} ${c2_2to4.y} ${point4.x} ${point4.y} Z`);
 }
 
 function drawTriUp(rad, id) {
@@ -274,7 +253,7 @@ function drawTriUp(rad, id) {
                             C ${point8.x} ${point8.y} ${point812.x} ${point812.y} ${point812.x} ${point812.y}
                             C ${point812.x} ${point812.y} ${point12.x} ${point12.y} ${point12.x} ${point12.y}
                             C ${point12.x} ${point12.y} ${point124.x} ${point124.y} ${point124.x} ${point124.y}
-                            C ${point124.x} ${point124.y} ${point4.x} ${point4.y} ${point4.x} ${point4.y}`);
+                            C ${point124.x} ${point124.y} ${point4.x} ${point4.y} ${point4.x} ${point4.y} Z`);
 }
 
 function drawTriDown(rad, id) {
@@ -292,25 +271,27 @@ function drawTriDown(rad, id) {
                             C ${point610.x} ${point610.y} ${point10.x} ${point10.y} ${point10.x} ${point10.y}
                             C ${point10.x} ${point10.y} ${point102.x} ${point102.y} ${point102.x} ${point102.y}
                             C ${point102.x} ${point102.y} ${point2.x} ${point2.y} ${point2.x} ${point2.y}
-                            C ${point2.x} ${point2.y} ${point26.x} ${point26.y} ${point26.x} ${point26.y}`);
+                            C ${point2.x} ${point2.y} ${point26.x} ${point26.y} ${point26.x} ${point26.y} Z`);
 }
 
 const neg = "T";
 const pos = "1";
 const zero = "0";
 
-let svgDial = document.getElementById("svgDial");
-let box = svgDial.getBoundingClientRect();
-
-let centerX = box.width / 2;
-let centerY = box.height / 2;
-let radius = box.height / 2;
 
 let ratio = 3 ** (1 / 3);
 ratio = 1.3333333;
 const scaleDown = (1 / ratio);
 const scale = 11;
 const secSize = 86_400_000 / (3 ** scale);
+
+let svgDial = document.getElementById("svgDial");
+let box = svgDial.getBoundingClientRect();
+
+let centerX = box.width / 2;
+let centerY = box.height / 2;
+let radius = (box.height / 2) - scale;
+
 
 //Makes the <path> elements used for the "digits"
 makePaths();
