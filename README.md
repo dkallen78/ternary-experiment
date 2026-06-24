@@ -11,3 +11,4 @@ you count
 
 Balanced ternary is a base 3 system but instead of using the values 0, 1, and 2 for its digits, it uses -1, 0, and 1, usually expressed as T, 0, 1 (the "T" kind of looks like an inverted 1, get it?). So, counting up to 9 in balanced ternary looks like this: 
 `0, 1, 1T, 10, 11, 1TT, 1T0, 1T1, 10T, 100`
+so instead of rendering 5 as 12 (1 * 3<sup>1</sup> + 2 * 3<sup>0</sup>) you render it as 1TT (1 * 3<sup>2</sup> + -1 * 3<sup>1</sup> + -1 * 3<sup>0</sup>)
