@@ -316,7 +316,7 @@ let timeInterval = setInterval(function() {
   //This if checks to see if the time has changed
   if (btCheck !== btSecs) {
     //Raw display of btSecs
-    dial.innerHTML = `${btSecs}`;
+    //dial.innerHTML = `${btSecs}<br>${tSecs}<br>${decimalTSecs}<br>${millis}`;
     //Sets the initial value of the radius
     let cRad = radius;
     //Loops through the btSecs string checking for changes
