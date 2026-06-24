@@ -25,6 +25,16 @@
 
 
     <style>
+      svg {
+        width: 90vh;
+        height: 90vh;
+      }
+      path {
+        fill: none;
+        stroke: black;
+        stroke-width: 1;
+        transition: 3s;
+      }
       #dial {
         font-family: monospace;
       }
@@ -32,6 +42,9 @@
   </head>
   <body>
     <div id="dial"></div>
+    <svg id="svgDial" xmlns=""http://www.w3.org/2000/svg">
+      <circle id="circle-test" fill="none" stroke="black"></circle>
+    </svg>
   </body>
 
   <script src="tern-time-2.js">
