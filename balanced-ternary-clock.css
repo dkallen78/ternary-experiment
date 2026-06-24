@@ -6,8 +6,10 @@ body {
 
 svg {
   width: 90vh;
-  height: 90vh;
-  max-height: 95vw;
+  max-width: 90vmin;     
+  height: auto;
+  /*max-height: 95vw;*/
+  aspect-ratio: 1 / 1;
 }
 
 path {
