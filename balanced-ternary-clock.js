@@ -229,7 +229,7 @@ const pos = "1";
 const zero = "0";
 
 let ratio = 3 ** (1 / 3);
-ratio = 1.3333333;
+ratio = 9 / 8;
 const scaleDown = (1 / ratio);
 const scale = 11;
 const secSize = 86_400_000 / (3 ** scale);
