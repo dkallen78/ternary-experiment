@@ -227,7 +227,7 @@ function makePaths() {
   }
 }
 
-function drawCurves(rad) {
+function drawCurves(rad, id) {
   function findControl(p1, p2, a1, a2) {
     const l = 0.3573;
     const c1 = new Point(p1.x - (l * rad * Math.sin(toRad(a1))), p1.y + (l * rad * Math.cos(toRad(a1))));
@@ -249,75 +249,50 @@ function drawCurves(rad) {
   const [c1_12to2, c2_12to2] = findControl(point12, point2, 270, 330);
   const [c1_2to4, c2_2to4] = findControl(point2, point4, 330, 30);
 
-  let tritPath = document.getElementById(`path-${i}`);
-  tritPath.setAttribute("d", `M ${(Math.cos(toRad(30)) * cRad) + centerX} ${(Math.sin(toRad(30)) * cRad) + centerY} 
+  let tritPath = document.getElementById(`path-${id}`);
+  tritPath.setAttribute("d", `M ${point4.x} ${point4.y} 
                         C ${c1_4to6.x} ${c1_4to6.y} ${c2_4to6.x} ${c2_4to6.y} ${point6.x} ${point6.y}
                         C ${c1_6to8.x} ${c1_6to8.y} ${c2_6to8.x} ${c2_6to8.y} ${point8.x} ${point8.y}
                         C ${c1_8to10.x} ${c1_8to10.y} ${c2_8to10.x} ${c2_8to10.y} ${point10.x} ${point10.y}
                         C ${c1_10to12.x} ${c1_10to12.y} ${c2_10to12.x} ${c2_10to12.y} ${point12.x} ${point12.y}
                         C ${c1_12to2.x} ${c1_12to2.y} ${c2_12to2.x} ${c2_12to2.y} ${point2.x} ${point2.y}
                         C ${c1_2to4.x} ${c1_2to4.y} ${c2_2to4.x} ${c2_2to4.y} ${point4.x} ${point4.y}`);
-
 }
 
-function makeCircles() {
-  let cRad = radius;
-  function findControl(p1, p2, a1, a2) {
-    const l = 0.3573;
-    const c1 = new Point(p1.x - (l * cRad * Math.sin(toRad(a1))), p1.y + (l * cRad * Math.cos(toRad(a1))));
-    const c2 = new Point(p2.x + (l * cRad * Math.sin(toRad(a2))), p2.y - (l * cRad * Math.cos(toRad(a2))));
-    return [c1, c2];
-  }
+function drawTriUp(rad, id) {
+  const point4 = new Point((Math.cos(toRad(30)) * rad) + centerX, (Math.sin(toRad(30)) * rad) + centerY);
+  const point8 = new Point((Math.cos(toRad(150)) * rad) + centerX, (Math.sin(toRad(150)) * rad) + centerY);
+  const point12 = new Point((Math.cos(toRad(270)) * rad) + centerX, (Math.sin(toRad(270)) * rad) + centerY);
+  const point48 = Point.center(point4, point8);
+  const point812 = Point.center(point8, point12);
+  const point124 = Point.center(point12, point4);
 
-  for(let i = 9; i >= 0; i--) {
-    const point4 = new Point((Math.cos(toRad(30)) * cRad) + centerX, (Math.sin(toRad(30)) * cRad) + centerY);
-    const point6 = new Point((Math.cos(toRad(90)) * cRad) + centerX, (Math.sin(toRad(90)) * cRad) + centerY);
-    const point8 = new Point((Math.cos(toRad(150)) * cRad) + centerX, (Math.sin(toRad(150)) * cRad) + centerY);
-    const point10 = new Point((Math.cos(toRad(210)) * cRad) + centerX, (Math.sin(toRad(210)) * cRad) + centerY);
-    const point12 = new Point((Math.cos(toRad(270)) * cRad) + centerX, (Math.sin(toRad(270)) * cRad) + centerY);
-    const point2 = new Point((Math.cos(toRad(330)) * cRad) + centerX, (Math.sin(toRad(330)) * cRad) + centerY);
-
-    let tritPath = document.getElementById(`path-${i}`);
-
-    const [c1_4to6, c2_4to6] = findControl(point4, point6, 30, 90);
-    const [c1_6to8, c2_6to8] = findControl(point6, point8, 90, 150);
-    const [c1_8to10, c2_8to10] = findControl(point8, point10, 150, 210);
-    const [c1_10to12, c2_10to12] = findControl(point10, point12, 210, 270);
-    const [c1_12to2, c2_12to2] = findControl(point12, point2, 270, 330);
-    const [c1_2to4, c2_2to4] = findControl(point2, point4, 330, 30);
-    tritPath.setAttribute("d",  `M ${(Math.cos(toRad(30)) * cRad) + centerX} ${(Math.sin(toRad(30)) * cRad) + centerY} 
-                          C ${c1_4to6.x} ${c1_4to6.y} ${c2_4to6.x} ${c2_4to6.y} ${point6.x} ${point6.y}
-                          C ${c1_6to8.x} ${c1_6to8.y} ${c2_6to8.x} ${c2_6to8.y} ${point8.x} ${point8.y}
-                          C ${c1_8to10.x} ${c1_8to10.y} ${c2_8to10.x} ${c2_8to10.y} ${point10.x} ${point10.y}
-                          C ${c1_10to12.x} ${c1_10to12.y} ${c2_10to12.x} ${c2_10to12.y} ${point12.x} ${point12.y}
-                          C ${c1_12to2.x} ${c1_12to2.y} ${c2_12to2.x} ${c2_12to2.y} ${point2.x} ${point2.y}
-                          C ${c1_2to4.x} ${c1_2to4.y} ${c2_2to4.x} ${c2_2to4.y} ${point4.x} ${point4.y}`);
-    
-     cRad *= scaleDown;
-  }
+  let tritPath = document.getElementById(`path-${id}`);
+  tritPath.setAttribute("d", `M ${point4.x} ${point4.y}
+                            C ${point4.x} ${point4.y} ${point48.x} ${point48.y} ${point48.x} ${point48.y}
+                            C ${point48.x} ${point48.y} ${point8.x} ${point8.y} ${point8.x} ${point8.y}
+                            C ${point8.x} ${point8.y} ${point812.x} ${point812.y} ${point812.x} ${point812.y}
+                            C ${point812.x} ${point812.y} ${point12.x} ${point12.y} ${point12.x} ${point12.y}
+                            C ${point12.x} ${point12.y} ${point124.x} ${point124.y} ${point124.x} ${point124.y}
+                            C ${point124.x} ${point124.y} ${point4.x} ${point4.y} ${point4.x} ${point4.y}`);
 }
 
-function makeTriangles() {
-  let cRad = radius;
-  for(let i = 9; i >= 0; i--) {
-    const point4 = new Point((Math.cos(toRad(30)) * cRad) + centerX, (Math.sin(toRad(30)) * cRad) + centerY);
-    const point8 = new Point((Math.cos(toRad(150)) * cRad) + centerX, (Math.sin(toRad(150)) * cRad) + centerY);
-    const point12 = new Point((Math.cos(toRad(270)) * cRad) + centerX, (Math.sin(toRad(270)) * cRad) + centerY);
-    const point48 = Point.center(point4, point8);
-    const point812 = Point.center(point8, point12);
-    const point124 = Point.center(point12, point4);
+function drawTriDown(rad, id) {
+  const point6 = new Point((Math.cos(toRad(90)) * rad) + centerX, (Math.sin(toRad(90)) * rad) + centerY);
+  const point10 = new Point((Math.cos(toRad(210)) * rad) + centerX, (Math.sin(toRad(210)) * rad) + centerY);
+  const point2 = new Point((Math.cos(toRad(330)) * rad) + centerX, (Math.sin(toRad(330)) * rad) + centerY);
+  const point610 = Point.center(point6, point10);
+  const point102 = Point.center(point10, point2);
+  const point26 = Point.center(point2, point6);
 
-    let tritPath = document.getElementById(`path-${i}`);
-    tritPath.setAttribute("d", `M ${point4.x} ${point4.y}
-                              C ${point4.x} ${point4.y} ${point48.x} ${point48.y} ${point48.x} ${point48.y}
-                              C ${point48.x} ${point48.y} ${point8.x} ${point8.y} ${point8.x} ${point8.y}
-                              C ${point8.x} ${point8.y} ${point812.x} ${point812.y} ${point812.x} ${point812.y}
-                              C ${point812.x} ${point812.y} ${point12.x} ${point12.y} ${point12.x} ${point12.y}
-                              C ${point12.x} ${point12.y} ${point124.x} ${point124.y} ${point124.x} ${point124.y}
-                              C ${point124.x} ${point124.y} ${point4.x} ${point4.y} ${point4.x} ${point4.y}`);
-    
-    cRad *= scaleDown;
-  }
+  let tritPath = document.getElementById(`path-${id}`);
+  tritPath.setAttribute("d", `M ${point26.x} ${point26.y}
+                            C ${point26.x} ${point26.y} ${point6.x} ${point6.y} ${point6.x} ${point6.y}
+                            C ${point6.x} ${point6.y} ${point610.x} ${point610.y} ${point610.x} ${point610.y}
+                            C ${point610.x} ${point610.y} ${point10.x} ${point10.y} ${point10.x} ${point10.y}
+                            C ${point10.x} ${point10.y} ${point102.x} ${point102.y} ${point102.x} ${point102.y}
+                            C ${point102.x} ${point102.y} ${point2.x} ${point2.y} ${point2.x} ${point2.y}
+                            C ${point2.x} ${point2.y} ${point26.x} ${point26.y} ${point26.x} ${point26.y}`);
 }
 
 const neg = "T";
@@ -348,6 +323,7 @@ makePaths();
 //makeTriangles();
 
 let timeCheck = "";
+let btCheck = "xxxxxxxxxx";
 let timeInterval = setInterval(function() {
   //This chunk finds the milliseconds that have elapsed in the current day
   //  at the users local time zone
@@ -362,14 +338,36 @@ let timeInterval = setInterval(function() {
   let tSecs = toTernary(decimalTSecs);
   let btSecs = toBalancedTernary(tSecs).padStart(10, 0)
 
+  if (btCheck !== btSecs) {
+    let cRad = radius;
+    for (let i = 0; i < btSecs.length; i++) {
+      if (btSecs[i] !== btCheck[i]) {
+        console.log(`i = ${i}`)
+        switch (btSecs[i]) {
+          case "1":
+            drawTriUp(cRad, i);
+            break;
+          case "0":
+            drawCurves(cRad, i);
+            break;
+          case "T":
+            drawTriDown(cRad, i);
+            break;
+        }
+      }
+
+      cRad *= scaleDown;
+    }
+    btCheck = btSecs;
+  }
   if (timeCheck !== btSecs) {
-    if (testState === "circles") {
+    /*if (testState === "circles") {
       makeTriangles();
       testState = "triangles"
     } else {
       makeCircles();
       testState = "circles";
-    }
+    }*/
     dial.innerHTML = `${btSecs}`;
     timeCheck = btSecs;
   }
