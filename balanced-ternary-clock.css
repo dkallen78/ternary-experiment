@@ -1,0 +1,21 @@
+body {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+svg {
+  width: 90vh;
+  height: 90vh;
+}
+
+path {
+  fill: white;
+  fill-opacity: 0.8;
+  stroke: black;
+  transition: .3s;
+}
+
+#dial {
+  font-family: monospace;
+}
