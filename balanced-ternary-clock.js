@@ -136,7 +136,7 @@ function makeSVG(type, id, ...classes) {
   //----------------------------------------------------//
   //type(string): type of SVG element to create         //
   //id(string): id of the element                       //
-  //classes(string): classes to add to the element       //
+  //classes(string): classes to add to the element      //
   //----------------------------------------------------//
   //return(element): SVG element                        //
   //----------------------------------------------------//
@@ -148,6 +148,11 @@ function makeSVG(type, id, ...classes) {
 }
 
 function makePaths() {
+  //----------------------------------------------------//
+  //Makes the <path> elements for the clock digits and  //
+  //  appends them to the <svg> element                 //
+  //----------------------------------------------------//
+  
   for(let i = 0; i < scale + 1; i++) {
     let tritPath = makeSVG("path", `path-${i}`);
     tritPath.setAttribute("stroke-width", `${(scale + 1 - i) / 10}%`);
@@ -157,13 +162,33 @@ function makePaths() {
 }
 
 function drawCurves(rad, id) {
+  //----------------------------------------------------//
+  //Draws the Bezier curves that comprise the circle    //
+  //----------------------------------------------------//
+  //rad(float): radius of the circle                    //
+  //id(string): id of the <path> element into which the //
+  //  curve should be described                         //
+  //----------------------------------------------------//
+
   function findControl(p1, p2, a1, a2) {
+    //----------------------------------------------------//
+    //Calculates the position of the control points for   //
+    //  the Bezier curves                                 //
+    //----------------------------------------------------//
+    //p1, p2(Point): the start and end point for the curve//
+    //a1, a2(float): The angle on the circle at which     //
+    //  p1 and p2 lie                                     //
+    //----------------------------------------------------//
+    //return(array[Point]): the two control points needed //
+    //  to approximate the arc of a circle                //
+    //----------------------------------------------------//
+
     const l = 0.3573;
     const c1 = new Point(p1.x - (l * rad * Math.sin(toRad(a1))), p1.y + (l * rad * Math.cos(toRad(a1))));
     const c2 = new Point(p2.x + (l * rad * Math.sin(toRad(a2))), p2.y - (l * rad * Math.cos(toRad(a2))));
     return [c1, c2];
   }
-
+  
   const point4 = new Point((Math.cos(toRad(30)) * rad) + centerX, (Math.sin(toRad(30)) * rad) + centerY);
   const point6 = new Point((Math.cos(toRad(90)) * rad) + centerX, (Math.sin(toRad(90)) * rad) + centerY);
   const point8 = new Point((Math.cos(toRad(150)) * rad) + centerX, (Math.sin(toRad(150)) * rad) + centerY);
@@ -189,6 +214,15 @@ function drawCurves(rad, id) {
 }
 
 function drawTriUp(rad, id) {
+  //----------------------------------------------------//
+  //Draws the Bezier curves that comprise the triangle  //
+  //----------------------------------------------------//
+  //rad(float): radius of the circumcircle into which   //
+  //  triangle is inscribed                             //
+  //id(string): id of the <path> element into which the //
+  //  curves should be described                        //
+  //----------------------------------------------------//
+
   const point4 = new Point((Math.cos(toRad(30)) * rad) + centerX, (Math.sin(toRad(30)) * rad) + centerY);
   const point8 = new Point((Math.cos(toRad(150)) * rad) + centerX, (Math.sin(toRad(150)) * rad) + centerY);
   const point12 = new Point((Math.cos(toRad(270)) * rad) + centerX, (Math.sin(toRad(270)) * rad) + centerY);
@@ -207,6 +241,15 @@ function drawTriUp(rad, id) {
 }
 
 function drawTriDown(rad, id) {
+  //----------------------------------------------------//
+  //Draws the Bezier curves that comprise the triangle  //
+  //----------------------------------------------------//
+  //rad(float): radius of the circumcircle into which   //
+  //  triangle is inscribed                             //
+  //id(string): id of the <path> element into which the //
+  //  curves should be described                        //
+  //----------------------------------------------------//
+
   const point6 = new Point((Math.cos(toRad(90)) * rad) + centerX, (Math.sin(toRad(90)) * rad) + centerY);
   const point10 = new Point((Math.cos(toRad(210)) * rad) + centerX, (Math.sin(toRad(210)) * rad) + centerY);
   const point2 = new Point((Math.cos(toRad(330)) * rad) + centerX, (Math.sin(toRad(330)) * rad) + centerY);
